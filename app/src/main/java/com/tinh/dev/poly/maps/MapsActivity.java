@@ -92,9 +92,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     if (!latLng.toString().equals(sydney1.toString())){
                                         Log.e("OKI","OKI");
                                         marker.setPosition(sydney1);
-
+                                        dialog.dismiss();
+                                        }else {
+                                      Log.e("TAG","MỜI BẠN NHẬP VỊ TRÍ KHÁC");
                                     }
-                                    dialog.dismiss();
+
                                 }
 
                             }
