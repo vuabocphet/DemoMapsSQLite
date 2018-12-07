@@ -90,7 +90,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 if (!latitude.isEmpty() && !longitude.isEmpty()){
                                     final LatLng sydney1 = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
                                     if (!latLng.toString().equals(sydney1.toString())){
-                                        mMap.clear();
                                         Log.e("OKI","OKI");
                                         marker.setPosition(sydney1);
 
