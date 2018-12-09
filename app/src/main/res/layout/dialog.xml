@@ -49,12 +49,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="Latitude"
-            android:inputType="number"
+            android:inputType="phone"
             android:id="@+id/latitude"/>
 
         <EditText
             android:imeOptions="actionDone"
-            android:inputType="number"
+            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
