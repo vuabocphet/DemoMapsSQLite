@@ -1,17 +1,13 @@
 package com.tinh.dev.poly.maps;
 
-import android.Manifest;
 import android.app.Dialog;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,10 +18,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tinh.dev.poly.maps.data.DataBase;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private DataBase dataBase;
     private GoogleMap mMap;
     private Cursor cursor;
+
+    private ArrayList<com.tinh.dev.poly.maps.LatLng> latLngs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         //Khởi tạo database
         dataBase = new DataBase(this);
+        latLngs=new ArrayList<com.tinh.dev.poly.maps.LatLng>();
+        latLngs.clear();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -48,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             cursor.moveToFirst();
             do {
                 final LatLng sydney = new LatLng(Double.parseDouble(cursor.getString(1)), Double.parseDouble(cursor.getString(2)));
+                latLngs.add(new com.tinh.dev.poly.maps.LatLng(cursor.getInt(0)));
                 mMap.addMarker(new MarkerOptions().position(sydney).title("Haha"));
                 Log.e("POSITION",cursor.getString(0));
             } while (cursor.moveToNext());
@@ -112,7 +115,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         int i =Integer.parseInt(index) + 1;
                         Log.e("I", i+"");
-                        dataBase.delete(i);
+                        dataBase.delete(latLngs.get(Integer.parseInt(index)).getId());
                         marker.remove();
                         dialog.dismiss();
                     }
